@@ -43,7 +43,7 @@ router.get('/user/:userId', async (req, res) => {
     try {
         const {userId} = req.params;
         const Reviews = await Review.find({userId});
-        res.json(Reviews);
+        res.json( Reviews );
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
