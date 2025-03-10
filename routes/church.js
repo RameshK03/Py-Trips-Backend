@@ -8,7 +8,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
    try{
     console.log("Received form data:", req.body);
     console.log("Uploaded file data:", req.file);  
-    const { imageName, description, location, locationUrl, rating } = req.body;
+    const { imageName, description, location, locationUrl, rating, time } = req.body;
   if (!imageName || !req.file) {
     return res.status(400).json({ message: 'Church name and file are required' });
   }
@@ -20,6 +20,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     locationUrl: locationUrl || '',  
     rating: rating || null,  
     data: req.file.buffer,
+    time : time,
     contentType: req.file.mimetype
   });
 
@@ -43,6 +44,7 @@ router.get('/', async (req, res) => {
         locationUrl: church.locationUrl, 
         rating: church.rating,  
         data: church.data.toString('base64'),
+        time : church.time,
         contentType: church.contentType
       }));
       res.status(200).json(ChurchArray);
@@ -56,14 +58,15 @@ router.get('/', async (req, res) => {
 router.put('/update/:id', upload.single('image'), async (req, res) => {
    try{
   const churchId = req.params.id;
-  const { imageName, description, location, locationUrl, rating } = req.body;
+  const { imageName, description, location, locationUrl, rating, time } = req.body;
 
   const updateData = {
     imageName: imageName,  
     description: description || '',
     location: location || '',  
     locationUrl: locationUrl || '', 
-    rating: rating || null  
+    rating: rating || null,  
+    time: time,
   };
 
   if (req.file) {
