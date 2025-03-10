@@ -7,6 +7,7 @@ const Church_Schema = new mongoose.Schema({
   locationUrl: { type: String, default: '' }, 
   rating: {  type: Number, min: 0, max: 5,  default: null }, 
   data: { type: Buffer, required: true },  
+  time :{ type : String ,   default :' '},
   contentType: { type: String,  required: true }  
 });
 
